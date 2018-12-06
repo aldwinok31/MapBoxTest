@@ -8,6 +8,7 @@
 
     <com.mapbox.services.android.navigation.ui.v5.NavigationView
         android:id="@+id/navView"
+        app:navigationViewDestinationMarker="@color/cardview_dark_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.mapbox.services.android.navigation.ui.v5.NavigationView>
 

@@ -50,21 +50,6 @@
      app:layout_constraintVertical_bias="0.486"
      app:srcCompat="@drawable/ic_clear_black_24dp" />
 
- <TextView
-     android:id="@+id/Tviewer"
-     android:layout_width="0dp"
-     android:layout_height="36dp"
-     android:alpha="0.8"
-     android:background="#000"
-     android:text="Navigate"
-     android:textAlignment="center"
-     android:textColor="#FFF"
-     android:textSize="24dp"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintHorizontal_bias="0.0"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent" />
-
  <ImageView
      android:id="@+id/imageView3"
      android:layout_width="52dp"
@@ -74,5 +59,37 @@
      app:layout_constraintBottom_toTopOf="@+id/imageView"
      app:layout_constraintEnd_toEndOf="parent"
      app:srcCompat="@drawable/ic_navigation_black_24dp" />
+
+ <Button
+     android:id="@+id/button2"
+     android:layout_width="0dp"
+     android:layout_height="58dp"
+     android:layout_marginBottom="8dp"
+     android:layout_marginEnd="8dp"
+     android:layout_marginStart="8dp"
+     android:alpha="0.8"
+     android:background="#000"
+     android:text="Navigate"
+     android:textColor="#FFF"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toStartOf="@+id/imageView"
+     app:layout_constraintHorizontal_bias="1.0"
+     app:layout_constraintStart_toStartOf="parent" />
+
+ <ListView
+     android:id="@+id/listv"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginBottom="8dp"
+     android:layout_marginEnd="8dp"
+     android:layout_marginStart="8dp"
+     android:alpha="0.8"
+     android:background="#FFFFFF"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.0"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.025" />
 
 </android.support.constraint.ConstraintLayout>

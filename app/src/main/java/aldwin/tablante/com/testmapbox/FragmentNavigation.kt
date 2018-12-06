@@ -6,6 +6,7 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,32 +17,33 @@ import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.services.android.navigation.ui.v5.listeners.NavigationListener
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import kotlinx.android.synthetic.main.navigation_res.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher.startNavigation
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher.startNavigation
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher.startNavigation
-import android.support.v4.app.FragmentActivity
 import android.view.Menu
+import com.mapbox.api.directions.v5.models.BannerInstructions
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions
 import com.mapbox.services.android.navigation.ui.v5.*
-import com.mapbox.services.android.navigation.v5.navigation.NavigationEventListener
+import com.mapbox.services.android.navigation.ui.v5.camera.NavigationCamera
+import com.mapbox.services.android.navigation.ui.v5.listeners.*
 import com.mapbox.services.android.navigation.v5.navigation.metrics.NavigationMetricListener
 import com.mapbox.services.android.navigation.v5.routeprogress.RouteProgress
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationListener, NavigationMetricListener {
+
+class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationListener, NavigationMetricListener,BannerInstructionsListener
+{
 
     var v: View? = null
     private var directionsRoute: DirectionsRoute? = null
 
+    override fun willDisplay(instructions: BannerInstructions?): BannerInstructions? {
+       return instructions
+    }
     override fun onArrival(routeProgress: RouteProgress?) {
-       
+
         var alertDialog = AlertDialog.Builder(this@FragmentNavigation.context)
         alertDialog.setMessage("You have reached your destination")
         alertDialog.setTitle("MapBox")
@@ -57,6 +59,8 @@ class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationList
     }
 
     override fun onRouteProgressUpdate(routeProgress: RouteProgress?) {
+        Toast.makeText(context, "Moved", Toast.LENGTH_LONG).show()
+
 //
     }
 
@@ -113,10 +117,9 @@ class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationList
     }
 
     override fun onNavigationReady(isRunning: Boolean) {
-        v!!.navView.cameraDistance = 30.00.toFloat()
 
-        val origin = Point.fromLngLat(arguments!!.getDouble("long"), arguments!!.getDouble("lat"))
-        val destination = Point.fromLngLat(arguments!!.getDouble("longn"), arguments!!.getDouble("latn"))
+        val destination = Point.fromLngLat(arguments!!.getDouble("long"), arguments!!.getDouble("lat"))
+        val origin = Point.fromLngLat(arguments!!.getDouble("longn"), arguments!!.getDouble("latn"))
         fetchRoute(origin, destination)
     }
 
@@ -147,6 +150,7 @@ class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationList
                         Toast.makeText(context!!.applicationContext, "Error 101", Toast.LENGTH_LONG).show()
                     }
                 })
+
     }
 
 
@@ -211,11 +215,15 @@ class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationList
         try {
 
 
+
             val options = NavigationViewOptions.builder()
+
                     .directionsRoute(directionsRoute)
                     .shouldSimulateRoute(true)
                     .navigationListener(this@FragmentNavigation)
-                    .build()
+                    .waynameChipEnabled(true)
+                     .build()
+
 
 
 
@@ -248,6 +256,7 @@ class FragmentNavigation : Fragment(), OnNavigationReadyCallback, NavigationList
 
 
     }
+
 
 
 }

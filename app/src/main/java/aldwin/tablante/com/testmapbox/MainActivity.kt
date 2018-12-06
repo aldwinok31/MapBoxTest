@@ -192,7 +192,6 @@ class MainActivity : AppCompatActivity() {
                 var string = geocoder.getFromLocation(lat, long, 1).get(0).featureName + ", " +
                         geocoder.getFromLocation(lat, long, 1).get(0).locality
 
-                Tviewer.setText(string)
             } catch (e: IndexOutOfBoundsException) {
                 e.printStackTrace()
 
